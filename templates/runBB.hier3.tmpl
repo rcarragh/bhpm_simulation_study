@@ -1,0 +1,60 @@
+set.seed(%%SEED%%)
+######################### All events, Severity 1, Model BB_dependent #####################
+print("######################### All events, Severity 1, Model BB level 1 #####################")
+
+x = bhpm.sim.control.params("SUMMARY.dat", "BB")
+x_MH = x[ x$type == "MH", ]
+#o1 <- x_MH[ x_MH$Outcome == "Outcome1" & x_MH$Trt.Grp == 2,]
+#o2 <- x_MH[ x_MH$Outcome == "Outcome6" & x_MH$Trt.Grp == 3,]
+#o3 <- x_MH[ x_MH$Outcome == "Outcome9" & x_MH$Trt.Grp == 4,]
+#s.p <- rbind(o1, o2, o3)
+#s.p$value = .008
+
+o1 <-  x[ x$Outcome == "Outcome3" & x$variable == "theta" & x$Trt.Grp == 2, ]
+o2 <-  x[ x$Outcome == "Outcome4" & x$variable == "theta" & x$Trt.Grp == 2, ]
+o3 <-  x[ x$Outcome == "Outcome5" & x$variable == "theta" & x$Trt.Grp == 2, ]
+
+s.p <- rbind(o1, o2, o3)
+
+o4 <-  x[ x$Outcome == "Outcome7" & x$variable == "theta" & x$Trt.Grp == 3, ]
+o5 <-  x[ x$Outcome == "Outcome8" & x$variable == "theta" & x$Trt.Grp == 3 , ]
+s.p <- rbind(s.p, o4, o5)
+s.p$value = .008
+
+
+raw = bhpm.pm(hier = 3, "SUMMARY.dat", level = %%LEVEL%%, sim.params = s.p)
+conv = bhpm.convergence.diag(raw)
+sink("convergence_BB_hier3_lev%%LEVEL%%.dat")
+bhpm.print.convergence.summary(conv)
+sink()
+rm(conv)
+gc()
+summ = bhpm.summary.stats(raw)
+
+print("Writing the summary stats....")
+write.table(summ$theta.summary, "theta_BB_hier3_lev%%LEVEL%%.dat")
+write.table(summ$gamma.summary, "gamma_BB_hier3_lev%%LEVEL%%.dat")
+print("Removing objects...")
+rm(summ)
+gc()
+ptheta = bhpm.ptheta(raw)
+print("Removing objects...")
+rm(raw)
+gc()
+write.table(ptheta, "ptheta_BB_hier3_lev%%LEVEL%%.dat")
+ptheta95 = ptheta[ptheta$ptheta > 0.95,]
+write.table(ptheta95, "ptheta95_BB_hier3_lev%%LEVEL%%.dat")
+ptheta90 = ptheta[ptheta$ptheta > 0.90,]
+write.table(ptheta90, "ptheta90_BB_hier3_lev%%LEVEL%%.dat")
+ptheta80 = ptheta[ptheta$ptheta > 0.80,]
+write.table(ptheta80, "ptheta80_BB_hier3_lev%%LEVEL%%.dat")
+print("Removing objects...")
+#rm(conv)
+rm(ptheta)
+rm(ptheta95)
+rm(ptheta90)
+gc()
+print("Finished.")
+
+warnings()
+

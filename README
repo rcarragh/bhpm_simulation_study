@@ -1,0 +1,19 @@
+For real patients the average treatment length is 339.1501 days
+(from SUMMARY.day - total exposure times divided by 14788)
+
+10 cluster average treatment times are derived as follows:
+
+round((rnorm(10, 339, 150)))
+557 444 275 499 533 460 312 167 540 287
+These are added to CLUSTER.AVERAGE.TIME
+
+To create a simulations:
+
+1. mkdir <sim.dir>
+2. Run create.sim_part1.r
+3. Edit raise_rates.r as required
+4. Run raise_rates.r
+5. create.sim_part2.r
+
+Post simulation results:
+analysis_clustered.r

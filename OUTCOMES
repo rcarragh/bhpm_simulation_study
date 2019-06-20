@@ -1,0 +1,11 @@
+Outcome.Grp Outcome
+Group1 Outcome1    # ischaemic stroke, other stroke, tia
+Group1 Outcome2	
+Group2 Outcome3    # systemic embolism, pulmonary embolism
+Group2 Outcome4
+Group2 Outcome5    # myocardial infarction, cardiovascular		
+Group3 Outcome6 
+Group3 Outcome7    # Haemorrhagic stroke, GI bleed, other major bleed
+Group3 Outcome8	
+Group3 Outcome9
+

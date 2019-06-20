@@ -1,0 +1,5 @@
+   method correct incorrect missed total.raised total.comp.with.baseline
+1 1ah3l0C    4559      9963  27441        32000                   270000
+2 1ah3l1C    4265      6574  27735        32000                   270000
+3 BBh3l0C      99        36  31901        32000                   270000
+4 BBh3l1C      68         5  31932        32000                   270000

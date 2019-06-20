@@ -1,0 +1,25 @@
+raised <- data.frame(
+outcome = c("outcome3", "outcome4", "outcome5", "outcome7", "outcome8"),
+cluster = c(0, 0, 0, 9, 9),
+treatment = c(2,2,2,3,3),
+raised = c(2, 1.5, 1.5, 2, 1.5),
+stringsAsFactors = FALSE)
+
+l = read.table("LAMBDA.base", h = T)
+
+for (i in 1:nrow(raised)) {
+	r = raised[i,]
+
+	if (r$cluster == 0) {
+		l[ l$outcome == r$outcome & l$treatment == r$treatment, ]$rate =
+			l[ l$outcome == r$outcome & l$treatment == r$treatment, ]$rate * r$raised
+	}
+	else {
+		l[ l$outcome == r$outcome & l$treatment == r$treatment &
+			l$cluster == r$cluster, ]$rate =
+			l[ l$outcome == r$outcome & l$treatment == r$treatment &
+			 l$cluster == r$cluster, ]$rate * r$raised
+	}
+
+	write.table(l, "LAMBDA")
+}
